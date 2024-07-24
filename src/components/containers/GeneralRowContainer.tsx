@@ -8,7 +8,7 @@ interface Props {
 
 const GeneralRowContainer: React.FC<Props> = ({ children, className }) => {
   return (
-    <div className={cn("xl:px-4 lg:px-4 md:px-4 sm:px-3 xs:px-2", className)}>
+    <div className={cn("xl:px-4 lg:px-4 md:px-4 sm:px-3 xs:px-3", className)}>
       {children}
     </div>
   );

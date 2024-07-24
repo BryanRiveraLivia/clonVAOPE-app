@@ -29,6 +29,7 @@ interface PropsDropDownLi {
 const Header = () => {
   const [NavEvents, setNavEvents] = useState<boolean>(false);
   const [NavEventsMobile, setNavEventsMobile] = useState<boolean>(false);
+  const [enableSearchMobile, setEnableSearchMobile] = useState<boolean>(false)
   const headerRef = useRef<HTMLDivElement>(null);
   const enableHeaderMobile = useMediaQuery({ query: "(max-width: 1040px)" });
 
@@ -57,7 +58,7 @@ const Header = () => {
   }, []);
 
   return !enableHeaderMobile ? (
-    <header ref={headerRef}>
+    <header className="fixed left-0 top-0 w-full z-50 shadow-xl" ref={headerRef}>
       <GeneralFullContainer className="bg-black">
         <GeneralContainer>
           <GeneralRowContainer className="flex items-center">
@@ -113,7 +114,7 @@ const Header = () => {
       </GeneralFullContainer>
     </header>
   ) : (
-    <header>
+    <header className="fixed left-0 top-0 w-full z-50 shadow-xl">
       <GeneralFullContainer className="bg-black">
         <GeneralContainer>
           <GeneralRowContainer className="flex items-center">
@@ -121,9 +122,9 @@ const Header = () => {
               className="min-w-[40px] h-[67px] flex items-center justify-center  transition-all"
               onClick={() => setNavEventsMobile(!NavEventsMobile)}
             >
-              <div className="relative flex items-center">
+              <div className="flex items-center">
                 <IoMenu
-                  className={`absolute text-white size-9 transition-all duration-300 transform`}
+                  className={`relative text-white size-9 transition-all duration-300 transform`}
                 />
               </div>
             </button>
@@ -135,10 +136,10 @@ const Header = () => {
                 height={20}
               ></Image>
             </div>
-            <button className="min-w-[40px] h-[67px] flex items-center justify-center  transition-all">
+            <button className="min-w-[40px] h-[67px] flex items-center justify-center  transition-all" onClick={()=>setEnableSearchMobile(!enableSearchMobile)}>
               <IoIosSearch className="text-white size-7" />
             </button>
-            <div className="hidden min-w-[40px] h-[67px]  items-center justify-items-center justify-center  xl:px-16 lg:px-10 md:px-5 sm:px-2">
+            <div className={`min-w-[40px] h-[67px]  items-center justify-items-center justify-center  xl:px-16 lg:px-6 md:px-5 sm:px-2 xs:px-2 absolute w-full top-0 left-0 flex flex-row gap-2 bg-black ${!enableSearchMobile && 'hidden'}`}>
               <div className="h-[38px] flex items-center overflow-hidden bg-white rounded-md  px-2 w-full ">
                 <form className="flex flex-row w-full gap-2 px-2">
                   <button>
@@ -153,6 +154,10 @@ const Header = () => {
                   />
                 </form>
               </div>
+              <IoClose
+              className={` text-white size-7 cursor-pointer`}
+              onClick={()=>setEnableSearchMobile(!enableSearchMobile)}
+            />
             </div>
           </GeneralRowContainer>
 
